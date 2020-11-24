@@ -9,6 +9,12 @@ import { HeaderComponent } from './components/layout/header/header.component';
 import { AddTodoComponent } from './components/add-todo/add-todo.component';
 import { FormsModule } from '@angular/forms';
 
+import Amplify from 'aws-amplify';
+import {AmplifyUIAngularModule} from '@aws-amplify/ui-angular';
+
+Amplify.configure();
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +26,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AmplifyUIAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent]
