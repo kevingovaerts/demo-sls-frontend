@@ -1,4 +1,9 @@
 <div>
-  <app-header></app-header>
-  <router-outlet></router-outlet>
+  <app-header [loggedIn]="checkLogin()"></app-header>
+  <amplify-authenticator *ngIf="authState !== 'signedin'"></amplify-authenticator>
+  <div *ngIf="authState === 'signedin' && user" class="App">
+    <div class="container content-wrapper">
+      <app-todos></app-todos>
+    </div>
+  </div>
 </div>
