@@ -8,6 +8,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 export class AddTodoComponent implements OnInit {
   @Output() addTodo: EventEmitter<any> = new EventEmitter();
   title: string;
+  inputField = document.getElementById('title-box');
 
   constructor() { }
 
@@ -19,7 +20,6 @@ export class AddTodoComponent implements OnInit {
       title: this.title,
       completed: false
     };
-
     this.addTodo.emit(todo);
   }
 
