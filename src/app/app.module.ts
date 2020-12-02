@@ -22,9 +22,16 @@ Amplify.configure({
     userPoolWebClientId: config.cognito.APP_CLIENT_ID
   },
   Storage: {},
-  API: {}
+  API: {
+    endpoints: [
+      {
+        name: config.apiGateway.NAME,
+        endpoint: config.apiGateway.URL,
+        region: config.apiGateway.REGION
+      },
+    ]
+  }
 });
-
 
 @NgModule({
   declarations: [

@@ -7,8 +7,8 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 })
 export class AddTodoComponent implements OnInit {
   @Output() addTodo: EventEmitter<any> = new EventEmitter();
-  title: string;
   inputField = document.getElementById('title-box');
+  title: string;
 
   constructor() { }
 

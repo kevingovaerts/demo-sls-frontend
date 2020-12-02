@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Todo} from '../../models/Todo';
-import {TodoService} from '../../services/todo.service';
+import {TodoAmplifyService} from '../../services/todo-amplify.service';
 
 @Component({
   selector: 'app-todos',
@@ -10,7 +10,7 @@ import {TodoService} from '../../services/todo.service';
 export class TodosComponent implements OnInit {
   todos: Todo[];
 
-  constructor(private todoService: TodoService, private cdRef: ChangeDetectorRef) {
+  constructor(private cdRef: ChangeDetectorRef, private todoAmplifyService: TodoAmplifyService) {
   }
 
   ngOnInit(): void {
@@ -18,27 +18,56 @@ export class TodosComponent implements OnInit {
   }
 
   fetchTodos(): void {
-    this.todoService.getTodos().subscribe(todos => {
-      this.todos = todos;
-      this.cdRef.detectChanges();
-    });
+    this.todoAmplifyService.getTodos()
+      .then(response => {
+        this.todos = response.data;
+      })
+      .catch(error => {
+        console.log(error.response);
+      })
+      .finally(() => {
+        this.cdRef.detectChanges();
+      });
   }
 
   deleteTodo(todo: Todo): void {
-    // remove from UI
-    this.todos = this.todos.filter(t => t.id !== todo.id);
-    // remove from server
-    this.todoService.deleteTodo(todo).subscribe(
-      e => {
-        this.cdRef.detectChanges();
-      }
-    );
+    this.todos = this.todos.filter(listTodos => listTodos.id !== todo.id);
+    this.todoAmplifyService.deleteTodo(todo)
+      .then(response => {
+        console.log(this.todos);
+      }).catch(err => {
+      console.log(err);
+    }).finally(() => {
+      this.cdRef.detectChanges();
+    });
   }
 
   addTodo(todo: Todo): void {
-    this.todoService.addTodo(todo).subscribe(item => {
-      this.todos.push(item);
-      this.cdRef.detectChanges();
-    });
+    this.todos.push(todo);
+    this.todoAmplifyService.createTodo(todo)
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log('Error while creating todo : ' + err);
+      })
+      .finally(() => {
+        console.log(this.todos);
+        this.cdRef.detectChanges();
+      });
+  }
+
+  updateTodo(todo: Todo): void {
+    this.todoAmplifyService.updateTodo(todo)
+      .then(response => {
+        console.log('update success: ' + response);
+      })
+      .catch(err => {
+        console.log('Error while creating todo : ' + err);
+      })
+      .finally(() => {
+        console.log(this.todos);
+        this.cdRef.detectChanges();
+      });
   }
 }
