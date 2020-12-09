@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {Component, OnInit, EventEmitter, Output} from '@angular/core';
 
 @Component({
   selector: 'app-add-todo',
@@ -10,7 +10,8 @@ export class AddTodoComponent implements OnInit {
   inputField = document.getElementById('title-box');
   title: string;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
@@ -20,6 +21,8 @@ export class AddTodoComponent implements OnInit {
       title: this.title,
       completed: false
     };
+    // @ts-ignore
+    document.getElementById('myForm').reset();
     this.addTodo.emit(todo);
   }
 

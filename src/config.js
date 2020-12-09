@@ -1,8 +1,8 @@
 const config = {
   apiGateway: {
-    NAME: "placeholder_url",
+    NAME: "sls-todo-api",
     REGION: "eu-west-1",
-    URL: "https://jsonplaceholder.typicode.com/todos?_limit=5",
+    URL: "https://jsonplaceholder.typicode.com",
   },
   cognito: {
     REGION: "eu-west-1",

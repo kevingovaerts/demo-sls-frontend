@@ -6,10 +6,8 @@ import {Todo} from '../models/Todo';
   providedIn: 'root'
 })
 export class TodoAmplifyService {
-  readonly apiName = 'placeholder_url';
-  // readonly path = '/todo';
-  readonly path = '';
-
+  readonly apiName = 'sls-todo-api';
+  readonly path = '/todos?_limit=5';
 
   constructor() {
   }
